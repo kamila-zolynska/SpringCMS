@@ -1,17 +1,18 @@
 package pl.coderslab.category;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 @Transactional
 public class CategoryDao {
 
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void create(Category category) {
         entityManager.persist(category);
@@ -24,5 +25,10 @@ public class CategoryDao {
     public void remove(Category category) {
         entityManager.remove(entityManager.contains(category)
                 ? category : entityManager.merge(category) );
+    }
+
+    public List<Category> findAll() {
+        return entityManager.createQuery("select c from Category c")
+                .getResultList();
     }
 }

@@ -1,17 +1,18 @@
 package pl.coderslab.article;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 @Transactional
 public class ArticleDao {
-    
-    private final EntityManager entityManager;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void create(Article article) {
         entityManager.persist(article);
@@ -23,6 +24,11 @@ public class ArticleDao {
 
     public void remove(Article article) {
         entityManager.remove(entityManager.contains(article)
-                ? article : entityManager.merge(article) );
+                ? article : entityManager.merge(article));
+    }
+
+    public List<Article> findAll() {
+        return entityManager.createQuery("select a from Article a")
+                .getResultList();
     }
 }

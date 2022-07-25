@@ -1,17 +1,18 @@
 package pl.coderslab.author;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 @Transactional
 public class AuthorDao {
 
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void create(Author author) {
         entityManager.persist(author);
@@ -24,5 +25,10 @@ public class AuthorDao {
     public void remove(Author author) {
         entityManager.remove(entityManager.contains(author)
                 ? author : entityManager.merge(author));
+    }
+
+    public List<Author> findAll() {
+        return entityManager.createQuery("select a from Author a")
+                .getResultList();
     }
 }
