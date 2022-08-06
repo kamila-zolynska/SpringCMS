@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -30,5 +31,10 @@ public class CategoryDao {
     public List<Category> findAll() {
         return entityManager.createQuery("select c from Category c")
                 .getResultList();
+    }
+
+    public Category findById(Long id) {
+        Query query = entityManager.createQuery("select c from Category c where c.id = ?1", Category.class);
+        return (Category) query.setParameter(1, id).getSingleResult();
     }
 }

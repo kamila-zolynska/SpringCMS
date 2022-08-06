@@ -9,23 +9,21 @@
 <body>
 <table>
     <tr>
-        <th>title</th>
-        <th>author</th>
-        <th>categories</th>
-        <th>content</th>
+        <th>Nazwa kategorii</th>
+        <th>Opis</th>
+        <th>Akcje do wykonania</th>
     </tr>
-    <c:forEach items="${articleList}" var="article">
+    <c:forEach items="${categories}" var="category">
         <tr>
-            <td>${article.title}</td>
-            <td>${article.author.fullName}</td>
+            <td>${category.name}</td>
+            <td>${category.description}</td>
             <td>
-                <c:forEach items="${article.categories}" var="category">
-                    ${category.name}<br>
-                </c:forEach>
+                <a href="/category/edit?id=${category.id}">Edytuj</a><br>
+                <a href="/category/delete?id=${category.id}">Usun</a>
             </td>
-            <td>${article.content}</td>
         </tr>
     </c:forEach>
-</table>
+</table><br><br>
+<a href="/category/add">Dodaj kategorie</a><br>
 </body>
 </html>
