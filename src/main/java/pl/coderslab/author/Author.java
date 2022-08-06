@@ -16,4 +16,13 @@ public class Author {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Transient
+    private String fullName;
+
+    public String getFullName() {
+        if (firstName.isEmpty() || lastName.isEmpty())
+            return "Brak autora";
+        return  firstName + " " + lastName;
+    }
 }

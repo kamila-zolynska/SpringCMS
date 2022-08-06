@@ -6,7 +6,6 @@ import pl.coderslab.author.Author;
 import pl.coderslab.category.Category;
 
 import javax.persistence.*;
-import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,11 +18,14 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(length = 200)
     private String title;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Author author;
-    @OneToMany
+
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
     private String content;
     private LocalDateTime created;

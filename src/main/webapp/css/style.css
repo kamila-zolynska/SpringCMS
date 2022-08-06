@@ -1,0 +1,12 @@
+table, tr, td, th {
+    border: 1px solid;
+    inline-size: border-box;
+}
+
+table {
+    width: 50%;
+}
+
+body {
+    background-color: bisque;
+}

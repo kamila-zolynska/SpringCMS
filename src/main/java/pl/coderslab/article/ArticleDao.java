@@ -31,4 +31,10 @@ public class ArticleDao {
         return entityManager.createQuery("select a from Article a")
                 .getResultList();
     }
+
+    public List<Article> findFiveTheNewestArticles() {
+        return entityManager.createQuery("select a from Article a order by a.created")
+                .setMaxResults(5)
+                .getResultList();
+    }
 }
